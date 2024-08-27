@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="free style timer.css">
+</head>
+<body>
+    <div class="project">
+        <header>
+            <div class="head-text"><h2>Swimming Stats</h2><div class="dark-light"><i class='fas fa-moon'></i><i class='fas fa-sun' style="display: none;"></i></div></div>
+        </header>
+        <div class="container">
+            <div class="left">
+                <h2 class="h2">Diffrence Between Days</h2>
+                <div class="notice" style="display: none;">Click the <span style="font-weight: bolder;">Stats</span> if you want to update</div>
+                <div class="inputAndcontent">
+                    <div class="input-desc" style="position: absolute;"><label for="">Time</label><p >(minutes)</p></div><input id="timeProvided" class="input inputs" type="text" placeholder="Enter time" autofocus><input id="exerciseType" class="inputs" type="text" placeholder="Enter Distance"><input onclick="add()" id="add" class="inputs" value="Add Time" type="submit">
+                    <input onkeyup="searchData(this.value)" id="search" class="inputs" type="text" placeholder="Search">
+                    <div class="content">
+                            <table>
+                                <tr> 
+                                    <th>Day</th>
+                                    <th>Time</th>
+                                    <th>Distance</th>
+                                    <th>Diffrence</th>
+                                </tr>
+                                <tbody class="stats-content">
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+
+            <div class="right">
+                <h2 class="h2">Swimming Programme</h2>
+                <div class="content-2">
+                    <div class="absolute-left">
+                        <table>
+                            <tr>
+                                <th class="days">Monday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Tuesday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Wednesday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Thursday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Friday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Saturday</th>
+                            </tr>
+                            <tr>
+                                <th class="days">Sunday</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="absolute-right">
+                        <table>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"> + 60 x 2</td>
+                            </tr>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                            <tr>
+                                <td><input  onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                            <tr>
+                                <td><input onkeyup="prgrmsHolder()" class="Programme" type="text" placeholder="Enter Task"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="average"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/4ab61ff196.js" crossorigin="anonymous"></script>
+
+    <script src="free style timer.js"></script>
+    <script>
+        /*
+            
+let timeProvided=document.querySelector('#timeProvided')
+let exerciseType=document.querySelector('#exerciseType')
+let addButton=document.querySelector('#add')
+let averageHolder=document.querySelector('.average')
+/* make first day */
+/*
+timeProvided.value="00:00"
+exerciseType.value="700m"
+let i
+let dataDays=[]
+if(localStorage.length!=0 && localStorage.days!=null){
+    dataDays=JSON.parse(localStorage.days)
+    i=dataDays.length
+}
+else{
+    i=0
+}
+
+
+console.log(dataDays)
+
+    
+function diffrence(oldTime,newTime){
+    //get the minutes
+    let oldTparts=oldTime.split(":")
+    let newTparts=newTime.split(":")
+    let oldMin=oldTparts[0]
+    let newMin=newTparts[0]
+    //get the seconds
+    let oldSec=oldTparts[1]
+    let newSec=newTparts[1]
+    //trasform to seconds
+    let oldTimeInSec=(parseInt(oldMin)*60)+parseInt(oldSec)
+    let newTimeInSec=(parseInt(newMin)*60)+parseInt(newSec)
+    // make diffrence & convert to M
+    let diff=Math.abs(newTimeInSec-oldTimeInSec)
+    if(oldTimeInSec<newTimeInSec){
+        let diffMin = Math.floor(diff / 60);
+        let diffSec=diff%60
+        let diffrence="+"+String(diffMin)+":"+String(diffSec)
+        if(diffrence.length===4){
+            diffrence="+"+String(diffMin)+":0"+String(diffSec)
+            return diffrence;
+        }
+        else{
+            return diffrence
+        }
+
+    }
+    else if(oldTimeInSec>newTimeInSec){
+        let diffMin = Math.floor(diff / 60);
+        let diffSec=diff%60
+        let diffrence="-"+diffMin+""+":"+diffSec+""
+        if(diffrence.length===4){
+            diffrence="-"+String(diffMin)+":0"+String(diffSec)
+            return diffrence;
+        }
+        else{
+            return diffrence
+        }
+    }
+    else if(oldTimeInSec===newTimeInSec){
+        let diffrence="0"
+        return diffrence
+    }
+}
+
+
+
+
+function add() {
+        if ((timeProvided.value).length === 5 && (timeProvided.value)[2]===':') {
+            let firstStat;
+            if (dataDays.length === 0) {
+                firstStat = {
+                    day: 1,
+                    time: timeProvided.value,
+                    distance: exerciseType.value,
+                    diffrence: 0,
+                };
+                dataDays.push(firstStat);
+                i++;
+            } else if(i>0 && dataDays[i-1].distance!=exerciseType.value){
+                for (let m = dataDays.length-1; m>=0 ; m--) {
+                    if(dataDays[m-1] && dataDays[m-1].distance===exerciseType.value){
+                        let newDay=(dataDays[i-1].day)+1;
+                        let newStat={
+                            day:newDay,
+                            time:timeProvided.value,
+                            distance:exerciseType.value,
+                            diffrence:diffrence(dataDays[m-1].time,timeProvided.value),
+                        }
+                        dataDays.push(newStat);
+                        i++;
+                        break;
+                    }
+                    else if(m===0){
+                        let newDay=(dataDays[i-1].day)+1;
+                        firstStat = {
+                            day: newDay,
+                            time: timeProvided.value,
+                            distance: exerciseType.value,
+                            diffrence: 0,
+                        };
+                        dataDays.push(firstStat);
+                        i++;
+                    }
+                }
+                
+            }
+            
+            
+            
+            
+            
+            else if(i>0){
+                let newDay=(dataDays[i-1].day)+1;
+                let newStat={
+                    day:newDay,
+                    time:timeProvided.value,
+                    distance:exerciseType.value,
+                    diffrence:diffrence(dataDays[i-1].time,timeProvided.value),
+                }
+                dataDays.push(newStat);
+                i++;
+            }
+            
+            localStorage.days = JSON.stringify(dataDays);
+            timeProvided.value = "";
+            exerciseType.value = "";
+            showDays();
+        }
+    }
+    
+
+
+//when i press enter it works the same as addBtn
+function handleEnterKey(event) {
+    if (event.key === 'Enter') {
+        add();
+    }
+}
+
+timeProvided.addEventListener('keydown', handleEnterKey);
+exerciseType.addEventListener('keydown', handleEnterKey);
+
+
+//to shwo days
+function showDays(){
+    let newTable=''
+        for (let j = dataDays.length-1; j >=0 ; j--) {
+            if(dataDays[j].diffrence[0]==='+'){
+                if(j===dataDays.length-1){
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[j].day}</td>
+                        <td>${dataDays[j].time}</td>
+                        <td>${dataDays[j].distance}</td>
+                        <td style="color: red;">${dataDays[j].diffrence}</td>
+                        <td><i onclick="deleteStat(${j})" class="fa-solid fa-x delete"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                }
+                else{
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[j].day}</td>
+                        <td>${dataDays[j].time}</td>
+                        <td>${dataDays[j].distance}</td>
+                        <td style="color: red;">${dataDays[j].diffrence}</td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                }
+                
+            }
+            else{
+                if(j===dataDays.length-1){
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[j].day}</td>
+                        <td>${dataDays[j].time}</td>
+                        <td>${dataDays[j].distance}</td>
+                        <td style="color: green;">${dataDays[j].diffrence}</td>
+                        <td><i onclick="deleteStat(${j})" class="fa-solid fa-x delete"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                }
+                else{
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[j].day}</td>
+                        <td>${dataDays[j].time}</td>
+                        <td>${dataDays[j].distance}</td>
+                        <td style="color: green;">${dataDays[j].diffrence}</td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr> ` 
+                }  
+            }
+            
+        }
+    
+    document.querySelector('.stats-content').innerHTML=newTable
+}
+
+
+
+function deleteStat(k){
+    
+        dataDays.splice(k,1)
+        if(dataDays.length === 0){
+            localStorage.days=JSON.stringify(dataDays)
+            showDays()
+            localStorage.removeItem('days')
+            location.reload()
+            console.log(dataDays)
+    
+        }
+        else{
+            i--;
+            localStorage.days=JSON.stringify(dataDays)
+            showDays()
+            console.log(dataDays)
+    
+        }
+    
+}
+
+
+
+
+
+
+
+showDays()
+
+
+let inputsPrgrm=document.getElementsByClassName('Programme')
+let allPrgrms=[]
+
+if(localStorage.length>0){
+    
+    allPrgrms=JSON.parse(localStorage.prgrms)
+    console.log(allPrgrms)
+    for (let o = 0; o < allPrgrms.length; o++) {
+        inputsPrgrm[o].value = allPrgrms[o];
+        
+    }
+}
+
+
+function prgrmsHolder(){
+
+    for (let e = 0; e < inputsPrgrm.length; e++) {
+        allPrgrms[e] = inputsPrgrm[e].value ;
+    }
+    
+    localStorage.prgrms=JSON.stringify(allPrgrms)
+
+}
+
+let search=document.getElementById('search')
+function searchData(value){
+    let newTable=''
+    for (let i = dataDays.length-1; i >=0; i--) {
+        if(dataDays[i].distance.includes(value)){
+            if(dataDays[i].diffrence[0]==='+'){
+                if(i===dataDays.length-1){
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[i].day}</td>
+                        <td>${dataDays[i].time}</td>
+                        <td>${dataDays[i].distance}</td>
+                        <td style="color: red;">${dataDays[i].diffrence}</td>
+                        <td><i onclick="deleteStat(${i})" class="fa-solid fa-x delete"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                    console.log(newTable)
+                }
+                else{
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[i].day}</td>
+                        <td>${dataDays[i].time}</td>
+                        <td>${dataDays[i].distance}</td>
+                        <td style="color: red;">${dataDays[i].diffrence}</td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                    console.log(newTable)
+                }
+                
+            }
+            else{
+                if(i===dataDays.length-1){
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[i].day}</td>
+                        <td>${dataDays[i].time}</td>
+                        <td>${dataDays[i].distance}</td>
+                        <td style="color: green;">${dataDays[i].diffrence}</td>
+                        <td><i onclick="deleteStat(${i})" class="fa-solid fa-x delete"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr>  `
+                    console.log(newTable)
+                }
+                else{
+                    newTable+=`
+                    <tr>
+                        <td>${dataDays[i].day}</td>
+                        <td>${dataDays[i].time}</td>
+                        <td>${dataDays[i].distance}</td>
+                        <td style="color: green;">${dataDays[i].diffrence}</td>
+                    </tr>
+                    <tr>
+                        <td class="silver-line"></td>
+                    </tr> ` 
+                    console.log(newTable)
+                }  
+            }
+            
+        }
+    }
+    document.querySelector('.stats-content').innerHTML=newTable
+    if (search.value!="" && average(value)!=undefined) {
+        averageHolder.innerHTML='Average Time : '+average(value)
+    }
+    else{
+        averageHolder.innerHTML=''
+    }
+    
+}
+
+
+function average(Value){
+    let sumTime=0
+    let sumDays
+    let avS
+    let Average
+    let nDays=0
+    for (let i = dataDays.length-1; i >=0; i--) {
+        if(dataDays[i].distance.includes(Value)){
+            nDays++
+            let parts=dataDays[i].time.split(":")
+            let Min=parts[0]
+            let Sec=parts[1]
+            
+
+            let TimeInSec=(parseInt(Min)*60)+parseInt(Sec)
+
+            sumTime=sumTime+TimeInSec
+            console.log(sumTime)
+
+            sumDays=nDays
+            console.log(sumDays)
+
+            avS=Math.floor(sumTime/sumDays)
+            let avMin = Math.floor(avS / 60);
+            let avSec=avS%60
+            Average=String(avMin)+":"+String(avSec)
+        }
+    }
+    return Average
+}
+        */
+    </script>
+</body>
+</html>

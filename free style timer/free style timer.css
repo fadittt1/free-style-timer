@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    font-family: ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.project{
+    width: 95%;
+    margin: auto;
+}
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.left,.right{
+    width: 50%;
+    border: 1px solid rgba(205, 205, 205, 0.975);
+    border-radius: 10px;
+}
+.left{
+    margin: 0 10px 0 0;
+    position: relative;
+}
+.right{
+    margin: 0 0 0 10px;
+}
+.content{
+    display: flex;
+}
+
+.day,.time,.diffrence,.type{
+    width: 25%;
+}
+table tr td,th{
+    padding: 1px 16px;
+    height: 46px;
+}
+table tr td{
+    text-align: center;
+}
+table tr th{
+    color: rgb(97, 88, 88);
+}
+.silver-line{
+    position: absolute;
+    border-top: 1px solid silver;
+    height: 1px;
+    width: 86%;
+    margin: auto;
+}
+.nothing{
+    position: absolute;
+}
+input{
+    position: relative;
+    left: 85px;
+    height: 22px;
+    padding-left: 10px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 8px 12px;
+    width: 151.562px;
+}
+.inputAndcontent{
+    padding: 24px;
+}
+.h2{
+    padding: 24px;
+    font-weight: 500;
+    font-size: 27px;
+}
+.content-2{
+    display: flex;
+    padding: 8px;
+}
+.absolute-right{
+    margin-left: auto;
+}
+.head-text{
+    margin: 24px 0;
+}
+.inputs{
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 15px;
+}
+#add{
+    width: 100px;
+    height: 40px;
+}
+table{
+    width: 100%;
+    font-size: larger;
+}
+.delete{
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    cursor: pointer;
+    height: 13px;
+}
+.days{
+    color: #000;
+    float: inline-start;
+}
+.stats-content tr:hover{
+    background-color: silver;
+    cursor: pointer;
+}
+#add{
+    cursor: pointer;
+}
+.Programme{
+    float: inline-start;
+    text-align: center;
+    font-size: 21px;
+    border: none;
+    outline: none;
+}
+#search{
+    margin: 16px 0px 16px 10px;
+    width: 339.124px;
+}
+.average{
+    width: 300px;
+    height: 60px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    font-weight: bold;
+}
+.head-text{
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+.dark-light{
+    position: absolute;
+    right: 30px;
+    font-size: 25px;
+}
+.dark-light>i{
+    position: absolute;
+    cursor: pointer;
+}
+.notice{
+    width: 300px;
+    height: 30px;
+    position: absolute;
+    top: 70px;
+    left: 150px;
+    text-align: center;
+    font-size: large;
+}
